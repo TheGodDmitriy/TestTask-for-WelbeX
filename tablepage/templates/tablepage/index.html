@@ -1,0 +1,52 @@
+{% load static %}
+
+
+<link rel="stylesheet" href="{% static 'css/pagination.css'%}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css">
+
+<style>
+.parent {
+  text-align: center;
+}
+</style>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Дата</th>
+            <th>Имя</th>
+            <th>Количество</th>
+						<th>Расстояние</th>
+        </tr>
+    </thead>
+			{% for person in tables %}
+				<tr>
+					<td>{{ person.id }}</td>
+					<td>{{ person.Date }}</td>
+					<td>{{ person.Name }}</td>
+					<td>{{ person.Amount }}</td>
+					<td>{{ person.Distance }}</td>
+				</tr>
+			{% endfor %}
+</table>
+
+
+<div class="parent">
+		<br> </br>
+		<div class="pagination">
+        {% if tables.has_previous %}
+            <a href="/page/{{ tables.previous_page_number }}/">&laquo;</a>
+            {% endif %}
+            {% for page in tables.paginator.page_range %}
+              {% if page == tables.number %}
+                <a href="/page/{{ page }}/">{{ page }}</a>
+                  {% else %}
+                      <a href="/page/{{ page }}/">{{ page }}</a>
+                  {% endif %}
+              {% endfor %}
+              {% if tables.has_next %}
+                  <a href="/page/{{ tables.next_page_number }}/">&raquo;</a>
+              {% endif %}
+
+</div>
